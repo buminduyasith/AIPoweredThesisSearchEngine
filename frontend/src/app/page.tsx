@@ -2,7 +2,8 @@
 import Image from "next/image";
 import LoadingSpinner from "../../Components/IndicatorWithStatus";
 import ResearchList from "../../Components/ResearchList";
-import ResearchProgressBar from "../../Components/ResearchProgressBar";
+import ResearchStepper from "../../Components/ResearchStepper";
+import { useEffect, useState } from "react";
 
 const researchItems = [
   {
@@ -31,6 +32,29 @@ const researchItems = [
   },
 ];
 export default function Home() {
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [stepper, setStepper] = useState(false);
+  const [arrayValue, setArrayValue] = useState(true);
+
+  const handleChange = (e: any) => {
+    console.log(e.target.value);
+    setValue(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    console.log(value);
+    setIsLoading(true);
+    setStepper(true);
+    setArrayValue(false);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  }, [isLoading]);
+
   return (
     <main className="min-h-screen">
       <div className="min-h-screen flex flex-col items-center my-10">
@@ -42,19 +66,23 @@ export default function Home() {
           {/* Set max width for the container */}
           <input
             type="text"
+            onChange={handleChange}
             className="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             placeholder="Enter your topic here"
           />
-          <button className="px-4 w-full py-4 my-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+          <button
+            onClick={handleSubmit}
+            className="px-4 w-full py-4 my-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
             Search
           </button>
         </div>
 
-        <LoadingSpinner isVisible={true} status="scraping data" />
+        <LoadingSpinner isVisible={isLoading} />
 
-        <ResearchProgressBar />
-        
-        <ResearchList researchItems={researchItems} />
+        {stepper ? <ResearchStepper /> : ""}
+
+        {isLoading || arrayValue ? "" : <ResearchList researchItems={researchItems} />}
       </div>
     </main>
   );
