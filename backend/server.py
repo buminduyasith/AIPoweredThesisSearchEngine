@@ -1,9 +1,7 @@
 import threading
-import os
-import uuid 
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from orchestrationService import Search
 
 app = Flask(__name__)
 CORS(app)
@@ -19,9 +17,10 @@ def process_json():
     if (content_type == 'application/json'):
         data = request.json
         query = data.get("query")
+        userId = "123"
         if query:
             try:
-                processVideoThred = threading.Thread(target=tes, args=(query))
+                processVideoThred = threading.Thread(target=Search, args=(query, userId))
                 processVideoThred.start()
             except Exception as e:
                 print("background process failed")

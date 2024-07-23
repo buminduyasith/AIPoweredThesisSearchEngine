@@ -10,7 +10,6 @@ def GetResearchAbstract(url):
     items = driver.find_elements(By.CLASS_NAME, "research-detail-middle-section__abstract")
     for item in items:
         try:
-            # Find title and link
 
             print(item.text)
             return item.text
@@ -19,6 +18,4 @@ def GetResearchAbstract(url):
             print("")
 
 
-
-    # Close the driver
     driver.quit()
