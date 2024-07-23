@@ -2,6 +2,9 @@
 
 This repository contains code for an AI-powered thesis search engine that automates the retrieval and summarization of academic research papers based on user queries.
 
+![image](https://github.com/user-attachments/assets/51946b9c-88a5-4b4c-b1dd-be644c68b695)
+
+
 ## Features
 
 - **User Interface:** Allows users to input topics of interest.
